@@ -1,0 +1,23 @@
+## How to restrict IAM users to see objects in your s3 buckets.
+
+{
+    "Version": "2012-10-17",
+    "Id": "RestrictBucketToIAMUsersOnly",
+    "Statement": [
+        {
+            "Sid": "AllowOwnerOnlyAccess",
+            "Effect": "Deny",
+            "Principal": "*",
+            "Action": "s3:*",
+            "Resource": [
+                "arn:aws:s3:::aws-pp1-prod-bucket/*",
+                "arn:aws:s3:::aws-pp1-prod-bucket"
+            ],
+            "Condition": {
+                "StringNotEquals": {
+                    "aws:PrincipalArn": "arn:aws:iam::637423216227:root"
+                }
+            }
+        }
+    ]
+}
